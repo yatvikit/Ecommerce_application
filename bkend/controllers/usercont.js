@@ -1,6 +1,22 @@
 const um = require("../models/usermodel")
 let bcrypt=require("bcrypt")
 let jwt=require("jsonwebtoken")
+const nodemailer = require("nodemailer");
+
+// Create a transporter using Ethereal test credentials.
+// For production, replace with your actual SMTP server details.
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // Use true for port 465, false for port 587
+  auth: {
+    user: "irsr560@gmail.com",
+    pass: "myuejhhjjhyyhjyhhbsput",
+  },
+    tls: {
+      rejectUnauthorized: false
+    }
+});
 let reg=async(req,res)=>{
     try{
         let obj=await um.findById(req.body._id)
@@ -46,8 +62,75 @@ let login=async(req,res)=>{
 
     }
     catch{
+       
         res.json({"msg":"error in login"})
     }
 }
 
-module.exports={reg,login}
+let sendotp=async(req,res)=>{
+    try
+    {
+        let obj=await um.findById(req.params.id)
+        if(obj)
+
+ {
+                 let otp=Math.round(Math.random()*1e6)
+        otp=""+otp
+        otp=otp.padEnd(6,0)
+        await um.findByIdAndUpdate({"_id":obj._id},{"otp":otp})
+
+        const info = await transporter.sendMail({
+    from: '"irsr" <irsr560@gmail.com>',
+    to:obj._id ,
+    subject: "otp to reset pwd",
+    text: `otp to reset pwd is ${otp}`, // Plain-text version of the message
+    
+  });
+  if(info.accepted.length>0)
+  {
+    res.json({"msg":"otp sent"})
+  }
+  else{
+ res.json({"msg":"error in sneding otp re-try"})
+  }
+
+
+
+
+}
+else{
+    res.json({"msg":"check email"})
+}
+
+       
+    }
+    catch(err)
+    {
+         console.log(err)
+      res.json({"msg":"error in sending otp"})  
+    }
+}
+
+let resetpwd=async(req,res)=>{
+    try{
+        let obj=await um.findById(req.body._id)
+        if(req.body.otp==obj.otp)
+        {
+            let pwdhash=await bcrypt.hash(req.body.pwd,10)
+            await um.findByIdAndUpdate({"_id":obj._id},{"pwd":pwdhash,"otp":""})
+            res.json({"msg":"pwd rest done"})
+
+        }
+        else{
+            res.json({"msg":"invalid otp"})
+        }
+
+
+    }
+    catch
+    {
+        res.json({"msg":"error in pwd reset"})
+    }
+}
+
+module.exports={reg,login,sendotp,resetpwd}
