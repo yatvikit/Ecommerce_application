@@ -1,8 +1,11 @@
 let express=require("express")
 const { reg, login, sendotp, resetpwd } = require("../controllers/usercont")
+const { upload, addprod, prods } = require("../controllers/prodcont")
 let rt=new express.Router()
 rt.post("/reg",reg)
 rt.post("/login",login)
 rt.get("/sendotp/:id",sendotp)
 rt.post("/resetpwd",resetpwd)
+rt.post("/addprod",upload.single("img"),addprod)
+rt.get("/prods",prods)
 module.exports=rt
