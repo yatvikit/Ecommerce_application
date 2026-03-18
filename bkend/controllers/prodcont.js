@@ -1,6 +1,7 @@
 let multer=require("multer")
 const pm = require("../models/prodmodel")
 let {v4}=require("uuid")
+let fs=require("fs")
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './prod')
@@ -39,4 +40,62 @@ let prods=async(req,res)=>{
         res.json({"msg":"error in fetching prod"})
     }
 }
-module.exports={addprod,prods,upload}
+let upddet=async(req,res)=>{
+    try
+    {
+        await pm.findByIdAndUpdate({
+            "_id":req.body._id
+        },req.body)
+        res.json({"msg":"det updated"})
+
+    }
+    catch
+    {
+        res.json({"msg":"error in updation"})
+    }
+}
+
+let updimg=async(req,res)=>{
+    try
+    {
+         
+       let obj= await pm.findByIdAndUpdate({"_id":req.body._id},{"img":req.file.filename})
+      
+       fs.rm(`./prod/${obj.img}`,()=>{})
+       res.json({"msg":"updating img done"})
+
+    }
+    catch(err)
+    {
+        console.log(err)
+        res.json({"msg":"error in upd img"})
+    }
+}
+let delprod=async(req,res)=>{
+    try{
+       let obj=await  pm.findByIdAndDelete(req.params.pid)
+         fs.rm(`./prod/${obj.img}`,()=>{})
+       res.json({"msg":"del done"})
+
+
+
+    }
+    catch
+    {
+res.json({"msg":"error in del"})
+    }
+}
+
+let getprods=async(req,res)=>{
+    try{
+        let data=await pm.findById(req.params.pid)
+        res.json(data)
+
+    }
+    catch
+    {
+        res.json({"msg":"error in fetching prod"})
+    }
+}
+
+module.exports={addprod,prods,upload,updimg,upddet,delprod,getprods}
