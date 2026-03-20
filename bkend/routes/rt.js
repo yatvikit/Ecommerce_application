@@ -1,6 +1,7 @@
 let express=require("express")
 const { reg, login, sendotp, resetpwd } = require("../controllers/usercont")
 const { upload, addprod, prods, upddet, updimg, delprod, getprods } = require("../controllers/prodcont")
+const { addcart, getcart, delcart, incqty, decqty } = require("../controllers/cartcon")
 let rt=new express.Router()
 rt.post("/reg",reg)
 rt.post("/login",login)
