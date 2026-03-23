@@ -19,10 +19,12 @@ const transporter = nodemailer.createTransport({
 });
 let reg=async(req,res)=>{
     try{
+       
         let obj=await um.findById(req.body._id)
+         
         if(obj)
         {
-            reg.json({"msg":"with given email acc exists"})
+            res.json({"msg":"with given email acc exists"})
         }
         else{
             let pwdhash=await bcrypt.hash(req.body.pwd,10)
