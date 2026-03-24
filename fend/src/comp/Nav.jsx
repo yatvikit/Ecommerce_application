@@ -12,7 +12,7 @@ const Nav = () => {
         <Link to="/login">Login</Link>
         </>:<>
        {obj.state.role==="admin" && <Link to="/addprod">Addprod</Link>}
-        <Link to="/cart">Cart</Link>
+        <Link to="/cart">Cart <sup>{obj.state.cartlength}</sup></Link>
         <Link to="/logout">Logout</Link>
         <p>{obj.state.name} </p>
         </>}

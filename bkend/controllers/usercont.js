@@ -2,6 +2,7 @@ const um = require("../models/usermodel")
 let bcrypt=require("bcrypt")
 let jwt=require("jsonwebtoken")
 const nodemailer = require("nodemailer");
+const cm = require("../models/cartmodel");
 
 // Create a transporter using Ethereal test credentials.
 // For production, replace with your actual SMTP server details.
@@ -50,8 +51,10 @@ let login=async(req,res)=>{
             let f=await bcrypt.compare(req.body.pwd,obj.pwd)
             if(f)
             {
-                res.json({"token":jwt.sign({"_id":obj._id},"1234"),"role":obj.role,"name":obj.name,"uid":obj._id})
+                let x=await cm.find({"uid":obj._id})
+                res.json({"token":jwt.sign({"_id":obj._id},"1234"),"role":obj.role,"name":obj.name,"uid":obj._id,"cartlength":x.length})
             }
+                
             else{
                 res.json({"msg":"check pwd"})
             }

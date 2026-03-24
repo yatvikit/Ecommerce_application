@@ -133,3 +133,45 @@
     width: 0%;
   }
 }
+
+.cartcard{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.cartcard img{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.cartcard .cartcont{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.cartcard .cartcont h3{
+  margin: 0;
+}
+.cartcard .cartcont p{
+  color: #555;
+}
+.cartcard .cartcont button{
+  padding: 5px 10px;
+
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cartcard .cartcont button:hover{
+  background-color: #555;
+}
+.ctotal{
+  text-align: center;
+  margin: 20px 0;
+} 

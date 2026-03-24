@@ -21,6 +21,11 @@ const Home = () => {
         {
             axios.post("http://localhost:5000/addcart",{"pid":item._id,"uid":obj.state.uid,"title":item.title,"price":item.price,"disc":item.disc,"img":item.img}).then(res=>{
                 setMsg(res.data.msg)
+                if(res.data.msg=="prod added to cart")
+                {
+ obj.updstate({"cartlength":obj.state.cartlength+1})
+                }
+               
                 setF(true)
                 setTimeout(()=>{
                     setF(false)
