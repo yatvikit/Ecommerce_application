@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import Ct from './Ct'   
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
@@ -11,11 +11,12 @@ const Home = () => {
     let [f,setF]=useState(false)
     let [msg,setMsg]=useState("")
     let navigate=useNavigate()
+    let [upd,setUpd]=useState(false)
     useEffect(()=>{
         axios.get("http://localhost:5000/prods").then(res=>{
             setData(res.data)
         })
-    },[])
+    },[upd])
     let addcart=(item)=>{
         if(obj.state.token!="")
         {
@@ -38,6 +39,13 @@ const Home = () => {
             navigate("/login")
         }
     }   
+    let del=(id)=>{
+        axios.delete(`http://localhost:5000/delprod/${id}`).then(res=>{
+            setUpd(!upd)   
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
   return (
     <div className="prod">
         {
@@ -51,8 +59,8 @@ const Home = () => {
                 <button>View details</button>
                 <button onClick={()=>addcart(item)}>Add to cart</button>
                {obj.state.role=="admin"&&<>
-               <button>Edit</button>
-                <button>Delete</button></>}
+               <button><Link to={`/edit/${item._id}`}>Edit</Link></button>
+                <button onClick={()=>del(item._id)}>Delete</button></>}
                 </div>
               
 
