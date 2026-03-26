@@ -1,6 +1,6 @@
 let express=require("express")
 const { reg, login, sendotp, resetpwd } = require("../controllers/usercont")
-const { upload, addprod, prods, upddet, updimg, delprod, getprods } = require("../controllers/prodcont")
+const { upload, addprod, prods, upddet,addcomm, updimg, delprod, getprods } = require("../controllers/prodcont")
 const { addcart, getcart, delcart, incqty, decqty } = require("../controllers/cartcon")
 let rt=new express.Router()
 rt.post("/reg",reg)
@@ -18,4 +18,5 @@ rt.get("/getcart/:uid",getcart)
 rt.delete("/delcart/:id",delcart)
 rt.get("/incqty/:id",incqty)
 rt.get("/decqty/:id",decqty)
+rt.post("/addcomm",addcomm)
 module.exports=rt

@@ -56,7 +56,7 @@ const Home = () => {
                  <h3>{item.title}</h3>
                 <p>Price: {item.price}</p>
                 <p>Discount: {item.disc}%</p>
-                <button>View details</button>
+                <button><Link to={`/km/${item._id}`}>View details</Link></button>
                 <button onClick={()=>addcart(item)}>Add to cart</button>
                {obj.state.role=="admin"&&<>
                <button><Link to={`/edit/${item._id}`}>Edit</Link></button>

@@ -97,5 +97,19 @@ let getprods=async(req,res)=>{
         res.json({"msg":"error in fetching prod"})
     }
 }
+let addcomm=async(req,res)=>{
+    try{
+        await pm.findByIdAndUpdate({"_id":req.body.pid},{
+            $push:{"comm":{"name":req.body.name,"comm":req.body.comm,"rating":req.body.rating}}
+        })
+        res.json({"msg":"comment added"})   
+    }
+    catch(err)
+    {
+        console.log(err)
+        res.json({"msg":"error in adding comment"})
+    }
+}
 
-module.exports={addprod,prods,upload,updimg,upddet,delprod,getprods}
+
+module.exports={addprod,prods,upload,updimg,upddet,delprod,getprods,addcomm}
