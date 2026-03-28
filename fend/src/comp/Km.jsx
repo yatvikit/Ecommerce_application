@@ -16,11 +16,20 @@ const Km = () => {
   let [msg,setMsg]=useState("")
   let navigate=useNavigate()
   let [reload,setrload]=useState(false)
+  let [art,setArt]=useState(0)
   useEffect(()=>{
     axios.get(`http://localhost:5000/getprod/${pid}`).then(res=>{
       setData(res.data)
+      const totalRating = res.data.comm?.reduce((acc,item)=>{
+        return acc+item.rating
+      },0)
+        const avgRating = res.data.comm?.length > 0 ? totalRating / res.data.comm.length : 0;
+        setArt(avgRating)
+    
       
-    })
+  }).catch(err=>{
+      console.log(err)
+  })   
   },[reload])
   let addcart=(item)=>{
         if(obj.state.token!="")
@@ -63,7 +72,9 @@ const Km = () => {
       <p>Discount: {data.disc}%</p>
       <p>Description: {data.desc}</p>
       <p>Category: {data.cat}</p>
+      {art>0&&<><Rating name="half-rating-read" defaultValue={art} precision={0.5} readOnly />({art.toFixed(1)}/{data.comm.length})</>}
       <button><Link to="/">Back to home</Link></button> 
+
       <button onClick={()=>addcart(data)}>Add to Cart</button>
  {f &&<div className='alert'>
             <p>{msg}</p>

@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   secure: true, // Use true for port 465, false for port 587
   auth: {
     user: "irsr560@gmail.com",
-    pass: "myuejhhjjhyyhjyhhbsput",
+    pass: process.env.apppwd,
   },
     tls: {
       rejectUnauthorized: false
@@ -52,7 +52,7 @@ let login=async(req,res)=>{
             if(f)
             {
                 let x=await cm.find({"uid":obj._id})
-                res.json({"token":jwt.sign({"_id":obj._id},"1234"),"role":obj.role,"name":obj.name,"uid":obj._id,"cartlength":x.length})
+                res.json({"token":jwt.sign({"_id":obj._id},process.env.pk),"role":obj.role,"name":obj.name,"uid":obj._id,"cartlength":x.length})
             }
                 
             else{
