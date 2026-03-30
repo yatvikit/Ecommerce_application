@@ -18,7 +18,7 @@ const Km = () => {
   let [reload,setrload]=useState(false)
   let [art,setArt]=useState(0)
   useEffect(()=>{
-    axios.get(`http://localhost:5000/getprod/${pid}`).then(res=>{
+    axios.get(`https://ecommerce-application-zek1.onrender.com/getprod/${pid}`).then(res=>{
       setData(res.data)
       const totalRating = res.data.comm?.reduce((acc,item)=>{
         return acc+item.rating
@@ -34,7 +34,7 @@ const Km = () => {
   let addcart=(item)=>{
         if(obj.state.token!="")
         {
-            axios.post("http://localhost:5000/addcart",{"pid":item._id,"uid":obj.state.uid,"title":item.title,"price":item.price,"disc":item.disc,"img":item.img}).then(res=>{
+            axios.post("https://ecommerce-application-zek1.onrender.com/addcart",{"pid":item._id,"uid":obj.state.uid,"title":item.title,"price":item.price,"disc":item.disc,"img":item.img}).then(res=>{
                 setMsg(res.data.msg)
                 if(res.data.msg=="prod added to cart")
                 {
@@ -54,7 +54,7 @@ const Km = () => {
         }
     }   
     let addcomm=()=>{
-      axios.post("http://localhost:5000/addcomm",{"pid":data._id,"name":obj.state.name,"comm":comm,"rating":value}).then(res=>{
+      axios.post("https://ecommerce-application-zek1.onrender.com/addcomm",{"pid":data._id,"name":obj.state.name,"comm":comm,"rating":value}).then(res=>{
         setrload(!reload)  
       }).catch(err=>{ 
         console.log(err)
@@ -67,7 +67,7 @@ const Km = () => {
   return (
     <div className='km'>
       <h2>{data.title}</h2>
-      <img src={`http://localhost:5000/prodimgs/${data.img}`} alt={data.name}/>
+      <img src={`https://ecommerce-application-zek1.onrender.com/prodimgs/${data.img}`} alt={data.name}/>
       <p>Price: {data.price}</p>
       <p>Discount: {data.disc}%</p>
       <p>Description: {data.desc}</p>

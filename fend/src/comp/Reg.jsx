@@ -9,7 +9,7 @@ const Reg = () => {
     setData({...data, [e.target.name]: e.target.value})
   }
   let reg=()=>{
-    axios.post("http://localhost:5000/reg",data).then((res)=>{
+    axios.post("https://ecommerce-application-zek1.onrender.com/reg",data).then((res)=>{
       if(res.data.msg=="acc created")
       {
         navigate("/login")

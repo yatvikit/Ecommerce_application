@@ -16,7 +16,7 @@ let navigate=useNavigate()
         navigate("/login")
     }
     else{
-      axios.get(`http://localhost:5000/getcart/${obj.state.uid}`).then(res=>{
+      axios.get(`https://ecommerce-application-zek1.onrender.com/getcart/${obj.state.uid}`).then(res=>{
         setArr(res.data)
         obj.updstate({"cartlength":res.data.length})
         let total=0
@@ -32,7 +32,7 @@ let navigate=useNavigate()
     
   },[f])
   let delcart=(id)=>{
-    axios.delete(`http://localhost:5000/delcart/${id}`).then(res=>{
+    axios.delete(`https://ecommerce-application-zek1.onrender.com/delcart/${id}`).then(res=>{
         setF(!f)
 
     }).catch(err=>{
@@ -40,7 +40,7 @@ let navigate=useNavigate()
     })
   } 
   let incqty=(id)=>{
-    axios.get(`http://localhost:5000/incqty/${id}`).then(res=>{
+    axios.get(`https://ecommerce-application-zek1.onrender.com/incqty/${id}`).then(res=>{
         setF(!f)  
     }).catch(err=>{
         console.log(err)
@@ -49,7 +49,7 @@ let navigate=useNavigate()
   let decqty=(id,qty)=>{
     if(qty>1)
     { 
-      axios.get(`http://localhost:5000/decqty/${id}`).then(res=>{
+      axios.get(`https://ecommerce-application-zek1.onrender.com/decqty/${id}`).then(res=>{
         setF(!f)
       }).catch(err=>{
         console.log(err)
@@ -65,7 +65,7 @@ let navigate=useNavigate()
     <div>
       {arr.length==0&&<h2>Cart is empty</h2>}
       {arr.map(item=><div className='cartcard'>
-        <img src={`http://localhost:5000/prodimgs/${item.img}`} alt={item.name}/>
+        <img src={`https://ecommerce-application-zek1.onrender.com/prodimgs/${item.img}`} alt={item.name}/>
         <div className='cartcont'>
           <h3>{item.title}</h3>
           <p>Price: {item.price}</p>

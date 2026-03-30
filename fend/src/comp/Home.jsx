@@ -13,14 +13,14 @@ const Home = () => {
     let navigate=useNavigate()
     let [upd,setUpd]=useState(false)
     useEffect(()=>{
-        axios.get("http://localhost:5000/prods").then(res=>{
+        axios.get("https://ecommerce-application-zek1.onrender.com/prods").then(res=>{
             setData(res.data)
         })
     },[upd])
     let addcart=(item)=>{
         if(obj.state.token!="")
         {
-            axios.post("http://localhost:5000/addcart",{"pid":item._id,"uid":obj.state.uid,"title":item.title,"price":item.price,"disc":item.disc,"img":item.img}).then(res=>{
+            axios.post("https://ecommerce-application-zek1.onrender.com/addcart",{"pid":item._id,"uid":obj.state.uid,"title":item.title,"price":item.price,"disc":item.disc,"img":item.img}).then(res=>{
                 setMsg(res.data.msg)
                 if(res.data.msg=="prod added to cart")
                 {
@@ -40,7 +40,7 @@ const Home = () => {
         }
     }   
     let del=(id)=>{
-        axios.delete(`http://localhost:5000/delprod/${id}`).then(res=>{
+        axios.delete(`https://ecommerce-application-zek1.onrender.com/delprod/${id}`).then(res=>{
             setUpd(!upd)   
         }).catch(err=>{
             console.log(err)
@@ -51,7 +51,7 @@ const Home = () => {
         {
             data.map((item)=><div className="card">
                 
-                <img src={`http://localhost:5000/prodimgs/${item.img}`} alt={item.name}/>
+                <img src={`https://ecommerce-application-zek1.onrender.com/prodimgs/${item.img}`} alt={item.name}/>
                <div className='cardcont'>
                  <h3>{item.title}</h3>
                 <p>Price: {item.price}</p>

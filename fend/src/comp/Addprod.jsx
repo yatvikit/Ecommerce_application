@@ -28,7 +28,7 @@ const Addprod = () => {
     {
       fd.append(key,data[key])
     }
-    axios.post("http://localhost:5000/addprod",fd).then(res=>{
+    axios.post("https://ecommerce-application-zek1.onrender.com/addprod",fd).then(res=>{
       if(res.data.msg=="prod is added")
       {
 navigate("/")

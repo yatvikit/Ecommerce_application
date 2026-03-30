@@ -22,7 +22,7 @@ const Edit = () => {
       navigate("/")
     }
     else{
-      axios.get(`http://localhost:5000/getprod/${pid}`).then(res=>{
+      axios.get(`https://ecommerce-application-zek1.onrender.com/getprod/${pid}`).then(res=>{
         setData(res.data)
       }).catch(err=>{
         console.log(err)
@@ -33,7 +33,7 @@ const Edit = () => {
   let editdet=()=>{
     let x={...data}
     delete x.img
-    axios.post("http://localhost:5000/upddet",x).then(res=>{
+    axios.post("https://ecommerce-application-zek1.onrender.com/upddet",x).then(res=>{
       setMsg(res.data.msg)
     }).catch(err=>{
       console.log(err)
@@ -43,7 +43,7 @@ const Edit = () => {
     let fd=new FormData()
     fd.append("_id",data._id)
     fd.append("img",data.img)
-    axios.post("http://localhost:5000/updimg",fd).then(res=>{
+    axios.post("https://ecommerce-application-zek1.onrender.com/updimg",fd).then(res=>{
       setMsg(res.data.msg)
     } ).catch(err=>{
       console.log(err)

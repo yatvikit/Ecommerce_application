@@ -11,7 +11,7 @@ const Resetpwd = () => {
   let [c,setC]=useState(300)
   let [iid,setIid]=useState("")
  let sendotp=()=>{
-  axios.get(`http://localhost:5000/sendotp/${email}`).then(res=>{
+  axios.get(`https://ecommerce-application-zek1.onrender.com/sendotp/${email}`).then(res=>{
     setMsg(res.data.msg)
     if(res.data.msg=="otp sent")
     {
@@ -42,7 +42,7 @@ const Resetpwd = () => {
       {f&&<input type="text" placeholder='Enter OTP' value={otp} onChange={(e)=>setOtp(e.target.value)}/>}
       {f&&<input type="password" placeholder='Enter new password' value={npwd} onChange={(e)=>setNpwd(e.target.value)}/>}
       {f&&<button onClick={()=>{
-        axios.post("http://localhost:5000/resetpwd",{"_id":email,"otp":otp,"pwd":npwd}).then(res=>{
+        axios.post("https://ecommerce-application-zek1.onrender.com/resetpwd",{"_id":email,"otp":otp,"pwd":npwd}).then(res=>{
           setMsg(res.data.msg)
         })
       }}>Reset Password</button>}

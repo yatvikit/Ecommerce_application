@@ -12,7 +12,7 @@ const Login = () => {
     setData({...data, [e.target.name]: e.target.value})
   }
   let login=()=>{
-    axios.post("http://localhost:5000/login",data).then((res)=>{
+    axios.post("https://ecommerce-application-zek1.onrender.com/login",data).then((res)=>{
       if(res.data.token!=undefined)
       {
         obj.updstate(res.data)
